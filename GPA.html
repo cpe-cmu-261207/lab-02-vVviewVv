@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA</title>
+</head>
+<style>
+    
+</style>
+<body style="background-color:#EAE7D6;">
+    <h1 style="text-align: center;">การคำนวณ GPA</h1>
+    <p style="text-align: center;">ชื่อวิชา:<input type="textbox" size="20" id="name"></input>
+    รหัสวิชา:<input type="textbox" size="20" id="id"></input>
+    ภาคเรียน:<input type="textbox" size="20" id="t"></input>
+    เกรดที่ได้รับ:<input type="textbox" size="20" id="g"></input></p>
+    <p style="text-align: center;"> <input type="submit" name="Submit" onclick="newElement()" value="submit">     <input type="submit" name="GPA" onclick="GPA()" value="GPA" >
+        <input type="submit" name="GPAM" onclick="GPAM()" value="GPA(major)" >
+        <input type="submit" name="GPAT" onclick="GPAT()" value="GPA(terms)" ></input></p>
+    <ul id="myANS"></ul>
+    <p style="text-align: center;"><a href="Homepage.html" alt="Homepage" >BACK TO HOMEPAGE</a></p>
+    
+    
+    
+    <script>
+        var close = document.getElementsByClassName("close");
+        var i;
+        var id = [];
+        var t = [];
+        var g = [];
+        var count = 0;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+                count--;
+            }
+        }
+
+        function newElement() {
+        var li = document.createElement("li");
+        var inputName = document.getElementById("name").value;
+        var inputId = document.getElementById("id").value;
+        var inputT = document.getElementById("t").value;
+        var inputG = document.getElementById("g").value;
+        var text = document.createElement(span);
+        text.innerHTML = "วิชา:"+inputName+" รหัส:"+inputId+" เทอม:"+inputT+" เกรด:"+inputG;
+        
+        li.appendChild(text);
+        if (inputName === ''||inputId === ''||inputT === ''||inputG === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myANS").appendChild(li);
+            id[count] = parseInt(inputId);
+            t[count] = parseInt(inputT);
+            g[count] = parseFloat(inputG);
+            count++;
+        }
+        document.getElementById("name").value = "";
+        document.getElementById("id").value = "";
+        document.getElementById("t").value = "";
+        document.getElementById("g").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            }
+        }
+        }
+        var j;
+        var G;
+        function GPA(){
+            if(count === 0) alert("You must write something!");
+            else{
+                G=0;
+                for(j = 0; j < count; j++){
+                    G = G+g[j];
+                    console.log (G);
+                }
+                alert (G/count);
+            }
+
+        }
+        var k
+        function GPAM(){
+            if(count === 0) alert("You must write something!");
+            else{
+                G=0;
+                k=0;
+                for(j = 0; j < count; j++){
+                    if(Math.floor(id[j]/1000)  == 261 ||Math.floor(id[j]/1000) == 269){
+                        G = G+g[j];
+                        k++;
+                    }
+                }
+                alert (G/k);
+            }
+        }
+        var G2=0;
+        var k2=0;
+        function GPAT(){
+            if(count === 0) alert("You must write something!");
+            else{
+                G=0;
+                k=0;
+                for(j = 0; j < count; j++){
+                    if(t[j] === 1){
+                        G = G+g[j];
+                        k++;
+                    }
+                    if(t[j] === 2){
+                        G2 = G2+g[j];
+                        k2++;
+                    }
+                }
+                alert ("เทอม1:"+G/k+" และ เทอม2:"+G2/k2);
+            }
+        }
+    </script>
+</body>
+</html>
